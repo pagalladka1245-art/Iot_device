@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#fbf8fd">
   <meta name="description" content="NEREUS smart water pump controller">
   <link rel="manifest" href="manifest.webmanifest">
-  <title>NAya · Water Control</title>
+  <title>NEREUS · Water Control</title>
   <style>
     :root{--ink:#282334;--muted:#8d8799;--line:#eee8f2;--pink:#edb6d5;--pink-deep:#bd78a8;--lav:#d9cffb;--purple:#8973d8;--green:#239a70;--red:#d45b72;--amber:#b9822f;--panel:rgba(255,255,255,.82);--shadow:0 18px 52px rgba(69,42,94,.09)}
     *{box-sizing:border-box}html{min-height:100%;background:#faf8fc}body{margin:0;min-height:100vh;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(ellipse at 4% 0%,rgba(250,215,235,.5),transparent 36%),radial-gradient(ellipse at 100% 20%,rgba(220,211,255,.48),transparent 34%),#faf8fc;-webkit-font-smoothing:antialiased}
@@ -95,13 +95,13 @@
 
     // Replace these with Firebase Console > Project settings > General > Your apps.
     const firebaseConfig = {
-      apiKey: 'AIzaSyDMt--HA5pzBCh4BbOKz-J2RpfEiwtgs3A',
-      authDomain: 'water-pump-system-2b8ef.firebaseapp.com',
-      databaseURL: 'https://water-pump-system-2b8ef-default-rtdb.firebaseio.com',
-      projectId: 'water-pump-system-2b8ef',
-      storageBucket: 'water-pump-system-2b8ef.firebasestorage.app',
-      messagingSenderId: '576246963157',
-      appId: '1:576246963157:web:b11e5ae833d08c27f87b5c'
+      apiKey: 'YOUR_FIREBASE_WEB_API_KEY',
+      authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
+      databaseURL: 'https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com',
+      projectId: 'YOUR_PROJECT_ID',
+      storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+      messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+      appId: 'YOUR_FIREBASE_WEB_APP_ID'
     };
     // Must match DEVICE_ID in WaterPump_ESP32_GeminiADC.ino
     const DEVICE_ID = 'pump_001';
