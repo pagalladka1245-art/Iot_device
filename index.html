@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#fbf8fd">
   <meta name="description" content="NEREUS smart water pump controller">
   <link rel="manifest" href="manifest.webmanifest">
-  <title>NEREUS · Water Control</title>
+  <title>NAya · Water Control</title>
   <style>
     :root{--ink:#282334;--muted:#8d8799;--line:#eee8f2;--pink:#edb6d5;--pink-deep:#bd78a8;--lav:#d9cffb;--purple:#8973d8;--green:#239a70;--red:#d45b72;--amber:#b9822f;--panel:rgba(255,255,255,.82);--shadow:0 18px 52px rgba(69,42,94,.09)}
     *{box-sizing:border-box}html{min-height:100%;background:#faf8fc}body{margin:0;min-height:100vh;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(ellipse at 4% 0%,rgba(250,215,235,.5),transparent 36%),radial-gradient(ellipse at 100% 20%,rgba(220,211,255,.48),transparent 34%),#faf8fc;-webkit-font-smoothing:antialiased}
@@ -75,8 +75,8 @@
         </div>
         <div id="calStatus" class="cal-status" role="status">Calibration captures the current ADC reading. It does not ask you to type an ADC value.</div>
         <div class="cal-values"><div class="cal-chip"><span>LOW reference · ADC</span><strong id="lowAdcValue">—</strong></div><div class="cal-chip"><span>FULL reference · ADC</span><strong id="highAdcValue">—</strong></div></div>
-        <div class="cal-values adc-live-values"><div class="cal-chip"><span>Current median</span><strong id="adcNowValue">—</strong></div><div class="cal-chip"><span>Sample min–max</span><strong id="adcRangeValue">—</strong></div><div class="cal-chip"><span>Filtered EMA</span><strong id="adcFilteredValue">—</strong></div></div>
-        <p class="settings-note">ADC diagnostics update only when you press Refresh. The controller uses the median of raw samples for calibration; EMA smoothing is used for the displayed level estimate.</p>
+        <div class="cal-values adc-live-values"><div class="cal-chip"><span>Current 5-read average</span><strong id="adcNowValue">—</strong></div><div class="cal-chip"><span>Sample min–max</span><strong id="adcRangeValue">—</strong></div><div class="cal-chip"><span>Filtered EMA</span><strong id="adcFilteredValue">—</strong></div></div>
+        <p class="settings-note">ADC diagnostics update only when you press Refresh. The controller averages five rapid ADC samples during each excitation pulse for calibration; EMA smoothing is used for the displayed level estimate.</p>
       </section>
 
       <section class="card">
@@ -103,7 +103,7 @@
       messagingSenderId: '576246963157',
       appId: '1:576246963157:web:b11e5ae833d08c27f87b5c'
     };
-    // Must match DEVICE_ID in WaterPump_ESP8266_Firmware.ino
+    // Must match DEVICE_ID in WaterPump_ESP32_GeminiADC.ino
     const DEVICE_ID = 'pump_001';
     const ACK_TIMEOUT_MS = 9000;
     const isConfigured = Object.values(firebaseConfig).every(v => typeof v === 'string' && v.length > 0 && !v.includes('YOUR_'));
@@ -193,7 +193,7 @@
           const key = c.kind;
           if (pendingCalibration[key] !== null && Number(c.requestId) === Number(pendingCalibration[key])) {
             const capture = Number.isFinite(Number(c.adcCaptured))
-              ? ` Captured median: ${c.adcCaptured}; burst range: ${c.adcMin}–${c.adcMax}.`
+              ? ` Captured average: ${c.adcCaptured}; burst range: ${c.adcMin}–${c.adcMax}.`
               : '';
             $('calStatus').textContent = c.ok ? `${c.message}${capture}` : `Calibration failed: ${c.message}${capture}`;
             $('calStatus').style.color = c.ok ? 'var(--green)' : 'var(--red)';
